@@ -1,7 +1,7 @@
 import logging
 import xml.etree.ElementTree as ET
 from functools import partial
-from typing import Any, Callable, Optional
+from typing import Any, Callable, List, Optional, Union
 
 import numpy as np
 
@@ -135,6 +135,9 @@ def get_yam_robot(
     ee_inertia: Optional[np.ndarray] = None,
     gravity_comp_factor: Optional[np.ndarray] = None,
     sim: bool = False,
+    enable_friction_comp: bool = False,
+    friction_comp_breakaway: Optional[Union[float, List[float], np.ndarray]] = None,
+    friction_comp_eps: float = 0.01,
     joint_state_saver_factory: Optional[Callable[[], Any]] = None,
     set_realtime_and_pin_callback: Optional[Callable[[int], None]] = None,
 ) -> "Robot":
@@ -255,6 +258,9 @@ def get_yam_robot(
         kp=kp,
         kd=kd,
         zero_gravity_mode=zero_gravity_mode,
+        enable_friction_comp=enable_friction_comp,
+        friction_comp_breakaway=friction_comp_breakaway,
+        friction_comp_eps=friction_comp_eps,
         joint_state_saver_factory=joint_state_saver_factory,
         set_realtime_and_pin_callback=set_realtime_and_pin_callback,
     )
